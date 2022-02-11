@@ -1,2 +1,2 @@
-def calculate(a=3, b=4):
-	return a*b
+def calculate(x):
+	return x**2

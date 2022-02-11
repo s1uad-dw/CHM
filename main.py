@@ -1,6 +1,7 @@
 import os
 import math
 
+fx = ''
 def str_to_list(value_str):
     value = []
     for i in value_str:
@@ -25,16 +26,16 @@ def round_function(value):
         return list_to_str(value)
         
 def input_function():
-    a = str(input('---'))
-    my_file = open('oaoa.py', 'w')
-    text_for_file = 'def oaoa(a=3, b=4):\n\treturn '+a
+    global fx 
+    a = int(input('Введите а: '))
+    b = int(input('Введите b: '))
+    fx = str(input('Введите функцию:\nf(x)='))
+
+def calculate_fx(x):
+    my_file = open('helper.py', 'w')
+    text_for_file = 'def calculate(x):\n\treturn '+fx
     my_file.write(text_for_file)
     my_file.close()
+    import helper
+    return helper.calculate(x)
 
-
-input_function()
-import helper
-print(helper.calculate())
-
-
-print(round_function(str_to_list('5.315')))
