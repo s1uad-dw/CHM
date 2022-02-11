@@ -19,14 +19,14 @@ def round_function(value):
         if value[4]=='5':
             value[3] = str(int(value[3])+1) if int(value[4])%2!=0 else value[3]
             return list_to_str(value)
-        else:   
+        else:
             value[3] = str(int(value[3])+1) if int(value[4])>5 else value[3]
             return list_to_str(value)
     else:
         return list_to_str(value)
         
 def input_function():
-    global fx 
+    global fx
     a = int(input('Введите а: '))
     b = int(input('Введите b: '))
     fx = str(input('Введите функцию:\nf(x)='))
@@ -38,4 +38,3 @@ def calculate_fx(x):
     my_file.close()
     import helper
     return helper.calculate(x)
-
