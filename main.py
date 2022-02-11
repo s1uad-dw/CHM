@@ -39,3 +39,19 @@ def calculate_fx(x):
     import helper
     return helper.calculate(x)
 
+def print_help():
+    print('#Подсказка')
+    print('#')
+    print('#match')
+    print('#    .pi         число пи')
+    print('#    .exp(x)     экспонента числа е^x')
+    print('#    .log(x, y)  лог х по основанию у')
+    print('#    .pow(x, y)  x - число у - стерпень')
+    print('#')
+    print('#    .sin(x)')
+    print('#    .cos(x)')
+    print('#    .tan(x)')
+    print('#    .atan(x)    инверсия')
+    print('#')
+    print('#    .degrees(x) из градусов в радианы')
+    print('#    .radians(x) из радианов в градусы')
