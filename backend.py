@@ -71,6 +71,11 @@ def result_line():
 
 def start(take_a, take_b, take_e, take_fx):
     global a, b, fx, e, e_last
+    fx = ''
+    a = 0
+    b = 0
+    e = 0
+    e_last = None
     a = take_a
     b = take_b
     fx = take_fx

@@ -1,3 +1,3 @@
 def calculate(x):
 	import math
-	return 3-math.pow(x,2)
+	return math.pow(x,3)-x-2

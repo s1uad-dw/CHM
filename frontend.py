@@ -38,6 +38,9 @@ async def take_message(message: types.Message):
         ''')
     elif '?' in message.text:
         list = (message.text[1:]).split('#')
-        await bot.send_message(message.from_user.id, backend.start(float(list[0]), float(list[1]), float(list[2]), list[3]))
+        id = message.from_user.id
+        await bot.send_message(id, backend.start(float(list[0]), float(list[1]), float(list[2]), list[3]))
+        list.clear()
+
 
 executor.start_polling(dp, skip_updates=True)
