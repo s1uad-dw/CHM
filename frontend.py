@@ -37,7 +37,7 @@ async def take_message(message: types.Message):
         ° => rad - math.radians(x)
         ''')
     elif '?' in message.text:
-        list = (message.text[1:]).split(',')
-        print(list)
+        list = (message.text[1:]).split('#')
+        await bot.send_message(message.from_user.id, backend.start(float(list[0]), float(list[1]), float(list[2]), list[3]))
 
 executor.start_polling(dp, skip_updates=True)
