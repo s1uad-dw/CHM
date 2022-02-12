@@ -13,7 +13,7 @@ help_cmd = ['!help', '!h', '/help', '/h']
 async def take_message(message: types.Message):
     if message.text == '/start':
         await bot.send_message(message.from_user.id, 'Бот для решения "Нелинейный управлений"')
-        await bot.send_message(message.from_user.id, '?a₀,b₀,ε,ƒ(x)')
+        await bot.send_message(message.from_user.id, '?a₀#b₀#ε#ƒ(x)')
         await bot.send_message(message.from_user.id, '''
         Отправь мне сообщение таким шаблоном, где:
         ‣a₀ - начало отрезка;
