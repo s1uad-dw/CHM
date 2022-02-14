@@ -215,7 +215,7 @@ def chord(take_a, take_b, take_e, take_fx, proizfx=0):
         mode=False
         xn = a
 
-    while(e_last == None or e<e_last):
+    while(e_last == None or e<-e_last):
         i+=1
         if i == 0:
             e_last=0
