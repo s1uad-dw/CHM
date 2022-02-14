@@ -13,7 +13,7 @@ help_cmd = ['!help', '!h', '/help', '/h']
 async def take_message(message: types.Message):
     if message.text == '/start':
         await bot.send_message(message.from_user.id, 'Бот для решения "Нелинейный управлений"')
-        await bot.send_message(message.from_user.id, '?a₀#b₀#ε#ƒ(x)')
+        await bot.send_message(message.from_user.id, '?a₀,b₀,ε,ƒ(x)')
         await bot.send_message(message.from_user.id, '''
         Отправь мне сообщение таким шаблоном, где:
         ‣a₀ - начало отрезка;
@@ -38,9 +38,8 @@ async def take_message(message: types.Message):
         ''')
     elif '?' in message.text:
         list = (message.text[1:]).split('#')
-        id = message.from_user.id
-        await bot.send_message(id, backend.start(float(list[0]), float(list[1]), float(list[2]), list[3]))
-        list.clear()
-
-
+        await bot.send_message(message.from_user.id, backend.half_division(float(list[0]), float(list[1]), float(list[2]), list[3]))
+        await bot.send_message(message.from_user.id, backend.chord(float(list[0]), float(list[1]), float(list[2]), list[3], list[4]))
+        await bot.send_message(message.from_user.id, backend.tangent(float(list[0]), float(list[1]), float(list[2]), list[3], list[4]))
+ 
 executor.start_polling(dp, skip_updates=True)
