@@ -1,9 +1,13 @@
-import math
 from aiogram import Bot, types
 from aiogram.dispatcher import Dispatcher
 from aiogram.utils import executor
+
 import os
-import backend
+import math
+
+import no_line_equation
+import general_functions
+
 bot = Bot(token='5052571361:AAEqq9WtciFV0V82ruIo8iib2_UqWW1oP-Q')
 dp = Dispatcher(bot)
 
@@ -25,21 +29,28 @@ async def take_message(message: types.Message):
         await bot.send_message(message.from_user.id, 
         '''
         Подсказка:\n
-        π - math.pi\n
-        e - math.exp(x)\n
-        logᵧ(x) - math.log(x, y)\n
-        xⁿ - math.pow(x, n)\n
-        sin(x) - math.sin(x)\n
-        cos(x) - math.cos(x)\n
-        tg(x) - math.tan(x)\n
-        ctg(x) - math.atan(x)\n
-        rad => ° - math.degress(x)\n
+        π - math.pi
+        e - math.exp(x)
+        logᵧ(x) - math.log(x, y)
+        xⁿ - math.pow(x, n)
+        sin(x) - math.sin(x)
+        cos(x) - math.cos(x)
+        tg(x) - math.tan(x)
+        ctg(x) - math.atan(x)
+        rad => ° - math.degress(x)
         ° => rad - math.radians(x)
         ''')
+        
     elif '?' in message.text:
         list = (message.text[1:]).split('#')
-        await bot.send_message(message.from_user.id, backend.half_division(float(list[0]), float(list[1]), float(list[2]), list[3]))
-        await bot.send_message(message.from_user.id, backend.chord(float(list[0]), float(list[1]), float(list[2]), list[3], list[4]))
-        await bot.send_message(message.from_user.id, backend.tangent(float(list[0]), float(list[1]), float(list[2]), list[3], list[4]))
+
+        if type(no_line_equation.half_division(float(list[0]), float(list[1]), float(list[2]), list[3]))==type(list):
+            doc = open(general_functions.create_excel(list[3], no_line_equation.half_division(float(list[0]), float(list[1]), float(list[2]), list[3]), ['шаг', 'a', 'f(a)','b', 'f(b)', 'c', 'f(c)', 'ε']) + '.xlsx', 'rb')
+            await bot.send_document(message.from_user.id, doc)
+            os.remove(doc.name)
+        else: 
+            await bot.send_message(message.from_user.id, 'Не решается методом 1')
+        # await bot.send_message(message.from_user.id, backend.chord(float(list[0]), float(list[1]), float(list[2]), list[3], list[4]))
+        # await bot.send_message(message.from_user.id, backend.tangent(float(list[0]), float(list[1]), float(list[2]), list[3], list[4]))
  
 executor.start_polling(dp, skip_updates=True)
