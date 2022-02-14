@@ -2,7 +2,7 @@ from dataclasses import replace
 import os
 import math
 
-from CHM.helper import calculate
+from helper import calculate
 
 fx = ''
 a = 0
@@ -22,21 +22,21 @@ def create_fx(fx):
 def create_sy(fx):
     my_file = open('proiz.py', 'w')
     text_for_file = '''def fxsy():
-                        \n\timport sympy as sym 
-                        \n\tx = sym.Symbol("x")
-                        \n\tf='''+ fx +'''
-                        \n\treturn str(f.diff(x))'''
+\timport sympy as sym 
+\tx = sym.Symbol("x")
+\tf='''+ fx +'''
+\treturn str(f.diff(x))'''
     my_file.write(text_for_file)
     my_file.close()
 
 def create_sy_2(fx):
     my_file = open('proiz_2.py', 'w')
     text_for_file = '''def fxsy():
-                        \n\timport sympy as sym 
-                        \n\tx = sym.Symbol("x")
-                        \n\tf='''+ fx +'''
-                        \n\tf=f.diff(x)
-                        \n\treturn str(f.diff(x))'''
+\timport sympy as sym 
+\tx = sym.Symbol("x")
+\tf='''+ fx +'''
+\tf=f.diff(x)
+\treturn str(f.diff(x))'''
     my_file.write(text_for_file)
     my_file.close()
 
@@ -44,8 +44,8 @@ def create_calc_sy(fx):
     fx = fx.replace('sym', 'math')
     my_file = open('proiz_calcul.py', 'w')
     text_for_file = '''def fxsy_1(x):
-                        \n\timport math
-                        \n\treturn '''+fx
+\timport math
+\treturn '''+fx
     my_file.write(text_for_file)
     my_file.close()
 
@@ -53,8 +53,8 @@ def create_calc_sy_2(fx):
     fx = fx.replace('sym', 'math')
     my_file = open('proiz_calcul_2.py', 'w')
     text_for_file = '''def fxsy_2(x):
-                        \n\timport math
-                        \n\treturn '''+fx
+\timport math
+\treturn '''+fx
     my_file.write(text_for_file)
     my_file.close()
 
@@ -93,7 +93,7 @@ def round_function(value, e):
         return list_to_str(value[:len(e)+2])
 
 def result_division_line():
-    from CHM.helper import calculate
+    from helper import calculate
     global a, b, fx, e, e_last
     fa = round_function(float_to_list(calculate(a)), float_to_list(e))
     fb = round_function(float_to_list(calculate(b)), float_to_list(e))
@@ -111,7 +111,7 @@ def result_division_line():
     return printa, fa, printb, fb,  c, fc, e_last
 
 def result_chord_line(first_run=False, mode=False):
-    from CHM.helper import calculate
+    from helper import calculate
     global a, b, fx, e, e_last, xn, bx
     if mode:
         xn = xn+e_last
@@ -198,8 +198,8 @@ def half_division(take_a, take_b, take_e, take_fx):
 def chord(take_a, take_b, take_e, take_fx, proizfx=0):
     global a, b, fx, e, e_last, xn
     create_sy(proizfx)
-    create_calc_sy(fxsy())
     import proiz
+    create_calc_sy(proiz.fxsy())
     import proiz_calcul
     a = take_a
     b = take_b
@@ -215,14 +215,14 @@ def chord(take_a, take_b, take_e, take_fx, proizfx=0):
         mode=False
         xn = a
 
-    while(e_last == None or e<e_last):
+    while(e_last == None or e<-e_last):
         i+=1
         if i == 0:
             e_last=0
             xn, fxn, bx, e_last = result_chord_line(True,mode)
         else:
             xn, fxn, bx, e_last = result_chord_line(mode=mode)
-        #вывод переменных в таблицу
+        output += '| ' + str(xn) + ' | ' + str(fxn) + ' | ' + str(bx) + ' | ' + str(e_last) + ' |\n'
     fx = ''
     a = 0
     b = 0
@@ -230,6 +230,7 @@ def chord(take_a, take_b, take_e, take_fx, proizfx=0):
     e_last = None
     xn=0
     bx=0
+    return output
 
 def tangent(take_a, take_b, take_e, take_fx, proizfx=0):
     global a, b, fx, e, e_last, xn
