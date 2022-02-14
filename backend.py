@@ -184,6 +184,8 @@ def half_division(take_a, take_b, take_e, take_fx):
             fc = str(fc) + ' |  '
         output += str(i)+'  |  '+str(aret)+str(fa)+str(bret)+str(fb)+str(c)+str(fc)
         output += str(e_last)+'  |  \n'
+        if i > 100:
+            return 'ошибка'
 
     fx = ''
     a = 0
@@ -197,6 +199,8 @@ def half_division(take_a, take_b, take_e, take_fx):
 
 def chord(take_a, take_b, take_e, take_fx, proizfx=0):
     global a, b, fx, e, e_last, xn
+    create_fx(take_fx)
+    import helper
     create_sy(proizfx)
     import proiz
     create_calc_sy(proiz.fxsy())
@@ -215,7 +219,7 @@ def chord(take_a, take_b, take_e, take_fx, proizfx=0):
         mode=False
         xn = a
 
-    while(e_last == None or e<-e_last):
+    while(e_last == None or e<abs(e_last)):
         i+=1
         if i == 0:
             e_last=0
