@@ -26,17 +26,17 @@ def round_function(value_float, e):
     for i in str(value_float):
         value.append(i)
     e += (value.index('.')+1)
-    #e = 2
-    #-23.045
+    #e = 3
+    #0.0945
     #e = 6
     # if value[0] != '-':
     if len(value)>=e+1:
-        if value[e]==5 and len(value)==e:
-            value[e-1] = str(int(value[e-1])+1) if int(value[e-1])%2!=0 else value[e-1]
+        if value[e]=='5' and len(value)==e+1:
+            value[e-1] = str(int(value[e-1])+1) if int(value[e-1])%2!=0 else str(value[e-1])
         else:
-            value[e-1] = str(int(value[e-1])+1) if int(value[e])>5 else value[e-1]
+            value[e-1] = str(int(value[e-1])+1) if int(value[e])>=5 else str(value[e-1])
             if value[e] == 9:
-                value[e] = '0' if int(value[e])>5 else value[e]
+                value[e] = '0' if int(value[e])>=5 else str(value[e])
     else:
         while len(value)<e:
             value.append('0')
@@ -44,6 +44,7 @@ def round_function(value_float, e):
     for i in value[:e]:
         value_str+=i
     return float(value_str)
+print(round_function(0.0945, 3))
     # else:
     #     if len(value)>e:
     #         if value[e]==5 and len(value)<+1:
