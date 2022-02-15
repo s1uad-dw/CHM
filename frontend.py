@@ -48,8 +48,12 @@ async def take_message(message: types.Message):
             await bot.send_document(message.from_user.id, doc)
             os.remove(doc.name)
         else: 
-            await bot.send_message(message.from_user.id, 'Не решается методом 1')
-        # await bot.send_message(message.from_user.id, backend.chord(float(list[0]), float(list[1]), float(list[2]), list[3], list[4]))
-        # await bot.send_message(message.from_user.id, backend.tangent(float(list[0]), float(list[1]), float(list[2]), list[3], list[4]))
+            await bot.send_message(message.from_user.id, 'Не решается методом половинного деления')
+        if type(no_line_equation.chord(float(list[0]), float(list[1]), float(list[2]), list[3]))==type(list):
+            doc = open(general_functions.create_excel(list[3], no_line_equation.chord(float(list[0]), float(list[1]), float(list[2]), list[3]), ['шаг', 'a', 'f(a)','b', 'f(b)', 'c', 'f(c)', 'ε']) + '.xlsx', 'rb')
+            await bot.send_document(message.from_user.id, doc)
+            os.remove(doc.name)
+        else:
+            await bot.send_message(message.from_user.id, 'Не решается методом хорд')
 
 executor.start_polling(dp, skip_updates=True)
