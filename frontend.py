@@ -44,13 +44,13 @@ async def take_message(message: types.Message):
         list = (message.text[1:]).split('#')
 
         if type(no_line_equation.half_division(float(list[0]), float(list[1]), float(list[2]), list[3]))==type(list):
-            doc = open(general_functions.create_excel(list[3], no_line_equation.half_division(float(list[0]), float(list[1]), float(list[2]), list[3]), ['шаг', 'a', 'f(a)','b', 'f(b)', 'c', 'f(c)', 'ε']) + '.xlsx', 'rb')
+            doc = open(general_functions.create_excel(list[3], no_line_equation.half_division(float(list[0]), float(list[1]), float(list[2]), list[3]), ['k', 'aₖ', 'f(aₖ)','bₖ', 'f(bₖ)', 'cₖ', 'f(cₖ)', 'εₖ']) + '.xlsx', 'rb')
             await bot.send_document(message.from_user.id, doc)
             os.remove(doc.name)
         else: 
             await bot.send_message(message.from_user.id, 'Не решается методом половинного деления')
         if type(no_line_equation.chord(float(list[0]), float(list[1]), float(list[2]), list[3]))==type(list):
-            doc = open(general_functions.create_excel(list[3], no_line_equation.chord(float(list[0]), float(list[1]), float(list[2]), list[3]), ['шаг', 'a', 'f(a)','b', 'f(b)', 'c', 'f(c)', 'ε']) + '.xlsx', 'rb')
+            doc = open(general_functions.create_excel(list[3], no_line_equation.chord(float(list[0]), float(list[1]), float(list[2]), list[3]), ['n', 'xₙ', 'f(xₙ)','b - xₙ', 'εₙ']) + '.xlsx', 'rb')
             await bot.send_document(message.from_user.id, doc)
             os.remove(doc.name)
         else:

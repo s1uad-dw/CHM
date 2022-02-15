@@ -27,34 +27,36 @@ def round_function(value_float, e):
         value.append(i)
     e += (value.index('.')+1)
     #e = 2
-    #23.045
-    #e = 5
-    if value[0] != '-':
-        if len(value)>e:
-            if value[e]==5 and len(value)==e-1:
-                value[e-2] = str(int(value[e-2])+1) if int(value[e-2])%2!=0 else value[e-2]
-            else:   
-                value[e-2] = str(int(value[e-2])+2) if int(value[e-1])>5 else value[e-2]
+    #-23.045
+    #e = 6
+    # if value[0] != '-':
+    if len(value)>=e+1:
+        if value[e]==5 and len(value)==e:
+            value[e-1] = str(int(value[e-1])+1) if int(value[e-1])%2!=0 else value[e-1]
         else:
-            while len(value)<e:
-                value.append('0')
-        value_str = ''
-        for i in value[:e-1]:
-            value_str+=i
-        return float(value_str)
+            value[e-1] = str(int(value[e-1])+1) if int(value[e])>5 else value[e-1]
+            if value[e] == 9:
+                value[e] = '0' if int(value[e])>5 else value[e]
     else:
-        if len(value)>e:
-            if value[e]==5 and len(value)<+1:
-                value[e-1] = str(int(value[e-2])+1) if int(value[e-1])%2!=0 else value[e-1]
-            else:   
-                value[e-1] = str(int(value[e-1])+1) if int(value[e-1])>5 else value[e-1]
-        else:
-            while len(value)<e+1:
-                value.append('0')
-        value_str = ''
-        for i in value[:e-1]:
-            value_str+=i
-        return float(value_str)
+        while len(value)<e:
+            value.append('0')
+    value_str = ''
+    for i in value[:e]:
+        value_str+=i
+    return float(value_str)
+    # else:
+    #     if len(value)>e:
+    #         if value[e]==5 and len(value)<+1:
+    #             value[e-1] = str(int(value[e-2])+1) if int(value[e-1])%2!=0 else value[e-1]
+    #         else:   
+    #             value[e-1] = str(int(value[e-1])+1) if int(value[e-1])>5 else value[e-1]
+    #     else:
+    #         while len(value)<e+1:
+    #             value.append('0')
+    #     value_str = ''
+    #     for i in value[:e-1]:
+    #         value_str+=i
+    #     return float(value_str)
 
 def derivative(expression, argument, serial_number, value):
     print(type(expression))
