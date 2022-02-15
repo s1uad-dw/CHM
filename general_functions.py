@@ -1,5 +1,5 @@
-import math
-
+import importlib
+import os
 
 def create_script(script, name):
     my_file = open(name + '.py', 'w')
@@ -59,3 +59,17 @@ def round_function(value_float, e_float):
         for i in value[:len(e)+1]:
             value_str+=i
         return float(value_str)
+
+def derivative(expression, argument, serial_number):
+    for i in range(serial_number):
+        create_script('''import math
+import sympy as sym
+def derivative_calculation(argument):
+    symbol = sym.Symbol(argument)
+    function = '''+expression.replace('math', 'sym').replace(argument, 'symbol')+'''
+    return str(function.diff(symbol))''', 'derivative')
+        import derivative
+        importlib.reload(derivative)
+        expression = derivative.derivative_calculation(argument) if expression != '0' else '0'
+    os.remove('derivative.py')
+    return expression

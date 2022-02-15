@@ -152,22 +152,22 @@ chord
 
 #     return printa, fa, printb, fb,  c, fc, e_last
 
-# def result_chord_line(first_run=False, mode=False):
-#     from helper import calculate
-#     global a, b, fx, e, e_last, xn, bx
-#     if mode:
-#         xn = xn+e_last
-#         fxn=calculate(xn)
-#         bx=xn-a
-#         e_last=-(fxn*bx)/(fxn-calculate(a))
+def result_chord_line(first_run=False, mode=False):
+    from helper import calculate
+    global a, b, fx, e, e_last, xn, bx
+    if mode:
+        xn = xn+e_last
+        fxn=calculate(xn)
+        bx=xn-a
+        e_last=-(fxn*bx)/(fxn-calculate(a))
         
-#     else:
-#         xn = xn+e_last
-#         fxn=calculate(xn)
-#         bx=b-xn
-#         e_last=-(fxn*bx)/(calculate(b)-fxn)
+    else:
+        xn = xn+e_last
+        fxn=calculate(xn)
+        bx=b-xn
+        e_last=-(fxn*bx)/(calculate(b)-fxn)
     
-#     return xn, fxn, bx, e_last
+    return xn, fxn, bx, e_last
 
 # def result_tanget():
 #     xn = xn+e_last

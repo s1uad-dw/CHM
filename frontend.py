@@ -3,7 +3,6 @@ from aiogram.dispatcher import Dispatcher
 from aiogram.utils import executor
 
 import os
-import math
 
 import no_line_equation
 import general_functions
@@ -32,7 +31,7 @@ async def take_message(message: types.Message):
         π - math.pi
         e - math.exp(x)
         logᵧ(x) - math.log(x, y)
-        xⁿ - math.pow(x, n)
+        xⁿ - (x**n)
         sin(x) - math.sin(x)
         cos(x) - math.cos(x)
         tg(x) - math.tan(x)
@@ -52,5 +51,5 @@ async def take_message(message: types.Message):
             await bot.send_message(message.from_user.id, 'Не решается методом 1')
         # await bot.send_message(message.from_user.id, backend.chord(float(list[0]), float(list[1]), float(list[2]), list[3], list[4]))
         # await bot.send_message(message.from_user.id, backend.tangent(float(list[0]), float(list[1]), float(list[2]), list[3], list[4]))
- 
+
 executor.start_polling(dp, skip_updates=True)

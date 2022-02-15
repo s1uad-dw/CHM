@@ -1,6 +1,6 @@
-from sympy import derive_by_array
 import general_functions
 import importlib
+import os
 
 def half_division(a, b, e, fx):
     general_functions.create_script(
@@ -25,16 +25,23 @@ def half_division(a, b, e, fx):
             b = c
         elif fb*fc<0:
             a = c
-        if i > 100:
-            return 'ERROR'
+        i > 1 or 'ERROR'
     return values
 # derivative - производная
-def chord (a, b, e, fx, derivative):
+def chord (a, b, e, fx):
     general_functions.create_script(
 '''def fx(x):
     import math
     return ''' + fx, 'fx')
     import fx
     importlib.reload(fx)
-    
-    
+    xn = b if fx.fx(a) and general_functions.derivative(fx, 'x', 2) else a
+    n = -1
+    e_last = None
+    values = []
+    while (e_last == None or e < e_last):
+        n += 1
+        xn = general_functions.round_function(b-a, e)
+
+
+
