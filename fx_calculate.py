@@ -1,3 +1,3 @@
 def fx_calculate(x):
     import math
-    return 2 * x - math.sin(x) - 0.25
+    return (x**5)-x-0.2

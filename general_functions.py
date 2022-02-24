@@ -82,31 +82,7 @@ def derivative_calculation(argument):
     importlib.reload(derivative)
     return derivative.derivative_calculation(value)
 
-def result_tanget(xn, fx1, e_last):
-    import general_functions
-    import fx
-    if e_last == None:
-        e_last =  0
-    xn = xn-e_last
-    fxn=fx.fx(xn)
-    f1x=general_functions.derivative(fx1, 'x', 1, xn)
-    e_last=fxn/f1x
-    return xn, fxn, f1x, e_last
 
-def comb(a, b, eb, ea, funk):
-    import general_functions
-    import fx
-    if ea != None:
-        a -= ea
-    if eb != None:
-        b -= eb
-    fb = fx.fx(b)
-    f1b = general_functions.derivative(funk, 'x', 1, b)
-    eb = fb/f1b
-    fa = fx.fx(a)
-    ea = (fa*(a-b))/(fb-fa)
-    difference = abs(a-b)
-    return a, b, fb, f1b, eb, fa, ea, difference
 
 
     

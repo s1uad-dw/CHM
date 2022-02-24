@@ -1,3 +1,4 @@
+from stringprep import in_table_c21
 import general_functions
 import importlib
 import os
@@ -49,18 +50,21 @@ def chord (a, b, e, fx):
     n = -1
     e_last = None
     values = []
-    if (fx_calculate.fx_calculate(a)>=0 and general_functions.derivative(fx, 'x', 1, a)>=0) or (fx_calculate.fx_calculate(a)<0 and general_functions.derivative(fx, 'x', 1, a)<0):
+    if (fx_calculate.fx_calculate(a)>=0 and general_functions.derivative(fx, 'x', 2, a)>=0) or (fx_calculate.fx_calculate(a)<0 and general_functions.derivative(fx, 'x', 1, a)<0):
         xn = b
         bxn = round((a - xn), 15)
-    elif (fx_calculate.fx_calculate(b)>=0 and general_functions.derivative(fx, 'x', 1, b)>=0) or (fx_calculate.fx_calculate(b)<0 and general_functions.derivative(fx, 'x', 1, b)<0):
+    elif (fx_calculate.fx_calculate(b)>=0 and general_functions.derivative(fx, 'x', 2, b)>=0) or (fx_calculate.fx_calculate(b)<0 and general_functions.derivative(fx, 'x', 1, b)<0):
         xn = a
         bxn = round((b - xn), 15)
     else:
         return 'ERROR'
-    while (e_last == None or e < float(str(e_last)[1:])):
+    while ((e_last == None or e < float(str(e_last)[1:])) and n<100):
         n += 1
         fxn = general_functions.round_function(fx_calculate.fx_calculate(xn), 5)
-        e_last = general_functions.round_function(-1*(fxn*bxn)/(fx_calculate.fx_calculate(b)-fxn), 5)
+        if fx_calculate.fx_calculate(b)-fxn !=0:
+            e_last = general_functions.round_function(-1*(fxn*bxn)/(fx_calculate.fx_calculate(b)-fxn), 5)
+        else: 
+            return "ERROR"
         values.append([n, xn, fxn, bxn, e_last])
         xn += e_last
         bxn = general_functions.round_function(b-xn, 5)
@@ -73,6 +77,7 @@ def tangent(a, b, e, fx):
     import math
     return ''' + fx, 'fx_calculate')
     import fx_calculate
+    importlib.reload(fx_calculate)
 
     if (fx_calculate.fx_calculate(a) * general_functions.derivative(fx, 'x', 2, a)) >= 0:
         xn = a
@@ -84,10 +89,17 @@ def tangent(a, b, e, fx):
     output = []
     i=-1
     e_last = None    
-
+    func = fx
     while(e_last == None or e<abs(e_last)):
         i+=1
-        xn, fx, f1x, e_last = general_functions.result_tanget(xn, fx, e_last)
+        import fx_calculate
+        importlib.reload(fx_calculate)
+        if e_last == None:
+            e_last =  0
+        xn = xn-e_last
+        fxn=fx_calculate.fx_calculate(xn)
+        f1x=general_functions.derivative(func, 'x', 1, xn)
+        e_last=fxn/f1x
         output.append([i, xn, f1x, -e_last])
     return output if i < 100 else "ERROR"
 
@@ -96,6 +108,7 @@ def komb(a, b, e, fx):
     import math
     return ''' + fx, 'fx_calculate')
     import fx_calculate
+    importlib.reload(fx_calculate)
 
     if fx_calculate.fx_calculate(a) * fx_calculate.fx_calculate(b) < 0:
         difference = None
@@ -103,9 +116,23 @@ def komb(a, b, e, fx):
         eb = None
         i = -1
         output = []
-        while difference == None or e < difference:
+        func = fx
+
+        while (difference == None or e < difference) and i<100:
             i+=1
-            a, b, fb, f1b, eb, fa, ea, difference = general_functions.komb(a, b, eb, ea)
+            import fx_calculate
+            importlib.reload(fx_calculate)
+            if ea != None:
+                a -= ea
+            if eb != None:
+                b -= eb
+            fb = general_functions.round_function(fx_calculate.fx_calculate(b), 5)
+            f1b = general_functions.round_function(general_functions.derivative(func, 'x', 1, b), 5)
+            eb = general_functions.round_function(fb/f1b, 5)
+            fa = general_functions.round_function(fx_calculate.fx_calculate(a), 5)
+            ea = general_functions.round_function((fa*(b-a))/(fb-fa), 5)
+            difference = general_functions.round_function(abs(a-b), 5)
+
             output.append([i, a, b, fb, f1b, -eb, fa, -ea])
         return output if i < 100 else "ERROR"
     else:
