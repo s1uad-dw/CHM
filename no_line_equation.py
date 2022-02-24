@@ -87,6 +87,26 @@ def tangent(a, b, e, fx):
 
     while(e_last == None or e<abs(e_last)):
         i+=1
-        xn, fx, f1x, e_last = general_functions.result_tanget(xn, fx,e_last)
+        xn, fx, f1x, e_last = general_functions.result_tanget(xn, fx, e_last)
         output.append([i, xn, f1x, -e_last])
     return output if i < 100 else "ERROR"
+
+def komb(a, b, e, fx):
+    general_functions.create_script('''def fx_calculate(x):
+    import math
+    return ''' + fx, 'fx_calculate')
+    import fx_calculate
+
+    if fx_calculate.fx_calculate(a) * fx_calculate.fx_calculate(b) < 0:
+        difference = None
+        ea = None
+        eb = None
+        i = -1
+        output = []
+        while difference == None or e < difference:
+            i+=1
+            a, b, fb, f1b, eb, fa, ea, difference = general_functions.komb(a, b, eb, ea)
+            output.append([i, a, b, fb, f1b, -eb, fa, -ea])
+        return output if i < 100 else "ERROR"
+    else:
+        return "ERROR"
