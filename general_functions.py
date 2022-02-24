@@ -81,3 +81,14 @@ def derivative_calculation(argument):
     import derivative
     importlib.reload(derivative)
     return derivative.derivative_calculation(value)
+
+def result_tanget():
+    import general_functions
+    import fx
+    if e_last == None:
+        e_last =  0
+    xn = xn-e_last
+    fxn=fx.fx(xn)
+    f1x=general_functions.derivative(fxn, 'x', 1, xn)
+    e_last=fxn/f1x
+    return xn, fxn, f1x, e_last

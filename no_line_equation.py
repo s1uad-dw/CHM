@@ -66,3 +66,27 @@ def chord (a, b, e, fx):
         bxn = general_functions.round_function(b-xn, 5)
         
     return values if n<100 else 'ERROR'
+
+
+def tangent(a, b, e, fx):
+    general_functions.create_script('''def fx_calculate(x):
+    import math
+    return ''' + fx, 'fx_calculate')
+    import fx_calculate
+
+    if (fx_calculate.fx_calculate(a) * general_functions.derivative(fx, 'x', 2, a)) >= 0:
+        xn = a
+    elif (fx_calculate.fx_calculate(b) * general_functions.derivative(fx, 'x', 2, b)) >= 0:
+        xn = b
+    else:
+        return 'ERROR'
+
+    output = []
+    i=-1
+    e_last = None    
+
+    while(e_last == None or e<abs(e_last)):
+        i+=1
+        xn, fx, f1x, e_last = general_functions.result_tanget(xn, fx,e_last)
+        output.append([i, xn, f1x, -e_last])
+    return output if i < 100 else "ERROR"
