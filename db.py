@@ -1,10 +1,6 @@
 import sqlite3
 import datetime 
 
-from aiogram import Bot, types
-from aiogram.dispatcher import Dispatcher
-from aiogram.utils import executor
-
 class DB():
     def __init__(self, name):
         self.conn = sqlite3.connect(name)
@@ -44,26 +40,3 @@ SELECT subscription_date FROM users WHEN first_name == {}
         subscription_date = self.cursor.execute("""
 UPDATE users SET subscription_date = {} WHERE first_name == {}
         """.format(day, first_name)).fetchall()
-            
-
-bot = Bot(token='5052571361:AAEqq9WtciFV0V82ruIo8iib2_UqWW1oP-Q')
-dp = Dispatcher(bot)
-
-db = DB("DB.db")
-
-
-
-print('start')
-
-@dp.message_handler(commands=['start'])
-async def process_start_command(msg: types.Message):
-    db.add_user(msg.from_user.first_name)
-    
-    if db.check_subscriptions(msg.from_user.first_name):
-        await bot.send_message(msg.from_user.id, text)
-
-    
-
-
-if __name__ == '__main__':
-    executor.start_polling(dp)
